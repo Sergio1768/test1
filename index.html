@@ -1,14 +1,17 @@
-// Definir las coordenadas del píxel que deseas colocar
-var x = 100;
-var y = 100;
+import requests
 
-// Obtener el contexto del lienzo (canvas)
-var canvas = document.querySelector('canvas');
-var context = canvas.getContext('2d');
+def colocar_pixel(x, y, color):
+    url = "https://api.rplace.tk/api/v1/place"
+    data = {
+        "x": x,
+        "y": y,
+        "color": color
+    }
+    response = requests.post(url, json=data)
+    if response.status_code == 200:
+        print("Píxel colocado exitosamente en las coordenadas ({}, {})".format(x, y))
+    else:
+        print("Error al colocar el píxel:", response.text)
 
-// Definir el color del píxel
-var color = '#FF0000';  // Cambia el color según sea necesario
-
-// Colocar el píxel en las coordenadas especificadas
-context.fillStyle = color;
-context.fillRect(x, y, 1, 1);
+# Colocar un píxel rojo en las coordenadas (100, 100)
+colocar_pixel(100, 100, "#FF0000")
